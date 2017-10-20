@@ -1,4 +1,4 @@
-div {
+#container div {
   background-color: #335;
   width: 100%;
   margin-bottom: 5px;
@@ -11,6 +11,13 @@ div {
   transition: margin-left 200ms;
 }
 
-div.invisible {
+#container div.invisible {
   margin-left: -110%;
+}
+
+#container {
+  padding: 20px;
+  background-color: #888;
+  height: 400px;
+  overflow: scroll;
 }

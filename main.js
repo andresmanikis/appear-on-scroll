@@ -1,19 +1,19 @@
-function createDivs(howMany) {
-  const body = document.querySelector('body');
+function createDivs(howMany, where) {
   for (let i = 0; i < howMany; i++) {
     const div = document.createElement('div');
     div.innerHTML = i + 1;
     div.className = 'invisible';
-    body.appendChild(div);
+    where.appendChild(div);
   }
 }
 
-function isVisible(element) {
+function isVisible(element, viewport) {
   const topLimit = element.offsetTop;
   const bottomLimit = topLimit + element.offsetHeight;
-  const viewportHeight = window.innerHeight;
-  const viewportTop = window.scrollY;
+  const viewportHeight = container.offsetHeight;
+  const viewportTop = viewport.scrollTop + container.offsetTop;
   const viewportBottom = viewportTop + viewportHeight;
+  console.log(topLimit, viewportTop);
   
   if (viewportTop < topLimit && viewportBottom > bottomLimit) {
     return true;
@@ -23,13 +23,13 @@ function isVisible(element) {
 }
 
 function detectVisibility() {
-  const divs = document.querySelectorAll('div');
+  const divs = document.querySelectorAll('#container div');
   divs.forEach(function(div) {
-    div.className = isVisible(div) ? 'visible' : 'invisible';
+    div.className = isVisible(div, container) ? 'visible' : 'invisible';
   });
 }
 
-createDivs(10);
+createDivs(10, document.querySelector('#container'));
 detectVisibility();
-window.addEventListener('scroll', detectVisibility);
+document.querySelector('#container').addEventListener('scroll', detectVisibility);
 window.addEventListener('resize', detectVisibility);
